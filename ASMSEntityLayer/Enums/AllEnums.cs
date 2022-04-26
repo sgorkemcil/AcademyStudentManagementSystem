@@ -16,4 +16,15 @@ namespace ASMSEntityLayer.Enums
         Female=1,
         Unkown=2
     }
+    public enum ClassLacation : byte
+    {
+        GirisKat=0,
+        Kat1=1,
+        Kat2=2,
+        Kat3=3,
+        Kat4=4,
+        Kat5=5,
+
+
+    }
 }

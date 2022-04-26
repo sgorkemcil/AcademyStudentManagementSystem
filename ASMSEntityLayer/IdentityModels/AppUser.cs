@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ASMSEntityLayer.Models;
 
 namespace ASMSEntityLayer.IdentityModels
 {
-    public class AppUser:IdentityUser
+    public class AppUser:IdentityUser,IBase
     {
         [DataType(DataType.DateTime)]
-        public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage="İsim Gereklidir!")]
         [StringLength(50,MinimumLength =2,ErrorMessage ="İsminiz en az 2 en çok 50 karakter olmalıdır.")]
@@ -27,5 +28,9 @@ namespace ASMSEntityLayer.IdentityModels
         public DateTime? BirthDate { get; set; }
         [Required(ErrorMessage = "Cinsiyet seçimi Gereklidir!")]
         public Genders Gender { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        //ilişkiler
+
+        public virtual ICollection<UsersAddress> UsersAddresses { get; set; }
     }
 }
