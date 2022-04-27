@@ -16,7 +16,7 @@ namespace ASMSEntityLayer.Models
         public string NeighbourhoodName { get; set; }
 
         //ilişki ilçeyle
-        public int DistrictID { get; set; }
+        public int DistrictId { get; set; }
         [ForeignKey("DistrictId")]
         public virtual District District { get; set; }
         //ilişki
