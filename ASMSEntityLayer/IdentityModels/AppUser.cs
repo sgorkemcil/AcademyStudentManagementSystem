@@ -32,5 +32,8 @@ namespace ASMSEntityLayer.IdentityModels
         //ilişkiler
 
         public virtual ICollection<UsersAddress> UsersAddresses { get; set; }
+        public virtual ICollection<Teacher>Teachers { get; set; }
+        public virtual ICollection<Student>Students { get; set; }
+
     }
 }

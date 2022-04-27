@@ -12,7 +12,8 @@ namespace ASMSEntityLayer.Models
     public class CourseGroup:Base<int>
     {
         public int ClassId { get; set; }
-        //öğretmen id gelecek
+        
+        public string TeacherTCNumber { get; set; }
         public int CourseId { get; set; }
         [DataType(DataType.Date)]
 
@@ -25,5 +26,16 @@ namespace ASMSEntityLayer.Models
         [StringLength(7, MinimumLength = 7, ErrorMessage = "Kurs portal numarası 7 haneli olmalıdır!!")]
         //TODO isunique eklensin
         public string PortalCode { get; set; }//1090997  1101064
+        //ilişki 
+        [ForeignKey("ClassId")]
+        public virtual Class Class { get; set; }
+        [ForeignKey("TeacherTCNumber")]
+        public virtual Teacher Teacher { get; set; }
+        [ForeignKey("CourseId")]
+        public virtual Course Course { get; set; }
+
+        //ilişki karşılığı öğrencinin kursslarının/eğitimlerinin alan öğrenciler listesi
+        public virtual ICollection<StudentsCourseGroup> Students { get; set; }
+
     }
 }
