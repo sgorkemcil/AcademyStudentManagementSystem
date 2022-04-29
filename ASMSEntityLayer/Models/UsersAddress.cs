@@ -12,6 +12,7 @@ namespace ASMSEntityLayer.Models
     [Table("UsersAddresses")]
     public class UsersAddress:Base<int>
     {
+
         public string UserId { get; set; }//AspnetUsers İlişki
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Adres başlığı en az 2 en çok 50 karakter aralığında olmalıdır.")]
