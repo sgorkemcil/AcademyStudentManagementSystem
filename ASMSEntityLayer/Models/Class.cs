@@ -14,7 +14,7 @@ namespace ASMSEntityLayer.Models
         [StringLength(50,MinimumLength =2,ErrorMessage="Sınıf adı en az 2 en çok 50 karakter aralığında olmalıdır!!")]
         public string ClassName { get; set; }
         //Bu enum olacak
-        public ClassLacation ClassFloor { get; set; }//Kat 1 gibi ??
+        public ClassLocation ClassFloor { get; set; }//Kat 1 gibi ??
         //ilişkinin karşılığı
         public virtual ICollection<CourseGroup> CourseGroups { get; set; }
     }
