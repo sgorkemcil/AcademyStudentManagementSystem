@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ASMSDataAccessLayer.ContractsDAL;
 using Microsoft.EntityFrameworkCore;
 
-namespace ASMSDataAccessLayer.İmplementationsDAL
+namespace ASMSDataAccessLayer.ImplementationsDAL
 {
     public class RepositoryBase<T, Id> : IRepositoryBase<T, Id> where T : class, new()
     {

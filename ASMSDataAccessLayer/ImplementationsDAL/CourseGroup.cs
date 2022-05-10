@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ASMSDataAccessLayer.ContractsDAL;
-using ASMSDataAccessLayer.İmplementationsDAL;
+using ASMSDataAccessLayer.ImplementationsDAL;
 using ASMSEntityLayer.Models;
 
 
-namespace ASMSDataAccessLayer.İmplementationsDAL
+namespace ASMSDataAccessLayer.ImplementationsDAL
 {
     public class CourseGroupRepo:RepositoryBase<CourseGroup, int>, ICourseGroupRepo
     {

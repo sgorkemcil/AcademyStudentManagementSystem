@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASMSDataAccessLayer.İmplementationsDAL
+namespace ASMSDataAccessLayer.ImplementationsDAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly MyContext _myContext;
+        protected readonly MyContext _myContext;
 
-        private UnitOfWork(MyContext myContext)
+        public UnitOfWork(MyContext myContext)
         {
             _myContext = myContext;
             CityRepo = new CityRepo(_myContext);

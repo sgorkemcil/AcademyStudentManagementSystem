@@ -12,6 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ASMSBusinessLayer.EmailService;
+using ASMSBusinessLayer.ContractsBLL;
+using ASMSDataAccessLayer.ContractsDAL;
+using ASMSBusinessLayer.ImplementationsBLL;
+using ASMSDataAccessLayer.ImplementationsDAL;
 using ASMSEntityLayer.Mapping;
 
 namespace ASMSPresentationLayer
@@ -28,38 +33,42 @@ namespace ASMSPresentationLayer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Aspnet Core'un ConnectionString baðlantýsý yapabilmesi için yapýlandýrma servislerine dbcontext nesnesini eklemesi gerekir.
-            services.AddDbContext<MyContext>(options => options.UseSqlServer
-            (Configuration.GetConnectionString("SqlConnection")));
-            
-            
+            //Aspnet Core'un connectionString baðlantýsý yapabilmesi için
+            //yapýlandýrma servislerine dbcontext nesnesini eklemesi gerekir
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")),ServiceLifetime.Scoped);
+
+
             services.AddControllersWithViews();
-            services.AddRazorPages();//razor sayfalarý için
+            services.AddRazorPages(); //razor sayfalarý için
             services.AddMvc();
             services.AddSession(options =>
-                         options.IdleTimeout = TimeSpan.FromSeconds(20));
-            //oturum zamaný
+            options.IdleTimeout = TimeSpan.FromSeconds(20));
+            //oturma zamaný 
 
-            //*******************************************************//
+            //***************************************************//
             services.AddIdentity<AppUser, AppRole>(options =>
-             {
-                 options.User.RequireUniqueEmail = true;
-                 options.Password.RequiredLength = 3;
-                 options.Password.RequireLowercase = false;
-                 options.Password.RequireUppercase = false;
-                 options.Password.RequireNonAlphanumeric = false;
-                 options.Password.RequireDigit = false;
-                 options.User.AllowedUserNameCharacters =
-                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@";
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";
 
-             }).AddDefaultTokenProviders().AddEntityFrameworkStores<MyContext>();
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<MyContext>();
 
-            //Mapleme eklendi.
+
+            //Mapleme ekliendi
             services.AddAutoMapper(typeof(Maps));
+
+            services.AddSingleton<IEmailSender, EmailSender>(); //Program her ayaða kalktýðýnda intences oluþturuyor
+            services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
+            services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork,ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,RoleManager<AppRole>roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -69,15 +78,19 @@ namespace ASMSPresentationLayer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();//wwwroot klasörünün eriþimi içindir.
+            app.UseStaticFiles();     // wwwroot klasörünün eriþimi içindir.
 
-            app.UseRouting();//Controller/Action/Id
-            app.UseSession();//oturum mekanizmasýnýn kullanýlmasý için
-            app.UseAuthorization();//[Authorize]Attribute için (yetki)
-            app.UseAuthentication();//Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için.
+            app.UseRouting();         // Controller/Action/Id
+            app.UseSession();         // Oturum mekanýzmasýnýn kullanýlmasý için
 
-            //MVC ile ayný kod bloðu endpoint'in mekanizmasýnýn nasýl olacaðý belirleniyor.
+            app.UseAuthorization();   // [Authorize] attribute için (yetki)
+            app.UseAuthentication();  // Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için.
             
+
+            //Rolleri oluþturulcak static metot çaðrýldý.
+            CreateDefaultData.CreateData.Create(roleManager);
+
+            // MVC ile ayný kod bloðu endpoint'in mekanýzmasýnýn nasýl olacaðý belirleniyor.
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

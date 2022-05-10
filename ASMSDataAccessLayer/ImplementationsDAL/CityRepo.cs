@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ASMSDataAccessLayer.ContractsDAL;
 using ASMSEntityLayer.Models;
-using ASMSDataAccessLayer.İmplementationsDAL;
+using ASMSDataAccessLayer.ImplementationsDAL;
 
-namespace ASMSDataAccessLayer.İmplementationsDAL
+namespace ASMSDataAccessLayer.ImplementationsDAL
 {
     public class CityRepo:RepositoryBase<City,byte>,ICityRepo
     {
