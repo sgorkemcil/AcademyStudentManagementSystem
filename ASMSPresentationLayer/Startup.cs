@@ -83,8 +83,8 @@ namespace ASMSPresentationLayer
             app.UseRouting();         // Controller/Action/Id
             app.UseSession();         // Oturum mekanýzmasýnýn kullanýlmasý için
 
-            app.UseAuthorization();   // [Authorize] attribute için (yetki)
             app.UseAuthentication();  // Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için.
+            app.UseAuthorization();   // [Authorize] attribute için (yetki)
             
 
             //Rolleri oluþturulcak static metot çaðrýldý.
