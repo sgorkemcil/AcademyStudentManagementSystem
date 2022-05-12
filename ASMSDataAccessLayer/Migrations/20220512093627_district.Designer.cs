@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASMSDataAccessLayer.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220427120758_initializeDB")]
-    partial class initializeDB
+    [Migration("20220512093627_district")]
+    partial class district
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -293,7 +293,7 @@ namespace ASMSDataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DisctrictName")
+                    b.Property<string>("DistrictName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");

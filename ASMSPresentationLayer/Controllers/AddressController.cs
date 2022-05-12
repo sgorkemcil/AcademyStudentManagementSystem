@@ -11,27 +11,33 @@ using System.Threading.Tasks;
 
 namespace ASMSPresentationLayer.Controllers
 {
-    [Authorize]
+    [Authorize]//Bu sayede sadece login olan kullanıcılar buraya gelecek
     public class AddressController : Controller
     {
-        private readonly UserManager<AppUser> userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly IUsersAddressBusinessEngine _userAdress;
+        private readonly IUsersAddressBusinessEngine _userAddress;
+        private readonly ICityBusinessEngine _cityEngine;
 
-        public AddressController(UserManager<AppUser> userManager, IEmailSender emailSender, IUsersAddressBusinessEngine userAdress)
+        public AddressController(UserManager<AppUser> userManager, IEmailSender emailSender,
+            IUsersAddressBusinessEngine userAddress, ICityBusinessEngine cityEngine)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
             _emailSender = emailSender;
-            _userAdress = userAdress;
+            _userAddress = userAddress;
+            _cityEngine = cityEngine;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult AddAddress()
         {
+            //İlleri sayfaya götürsün
+            ViewBag.Cities = _cityEngine.GetAll().Data;
             return View();
         }
     }

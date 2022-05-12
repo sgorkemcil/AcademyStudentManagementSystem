@@ -13,7 +13,7 @@ namespace ASMSEntityLayer.Models
     {
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "İlçe adı en az 2 en çok 50 karakter aralığında olmalıdır.")]
-        public string DisctrictName { get; set; }
+        public string DistrictName { get; set; }
 
         //ilişki
         public byte CityId { get; set; }

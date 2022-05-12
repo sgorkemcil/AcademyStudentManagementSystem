@@ -18,6 +18,7 @@ using ASMSDataAccessLayer.ContractsDAL;
 using ASMSBusinessLayer.ImplementationsBLL;
 using ASMSDataAccessLayer.ImplementationsDAL;
 using ASMSEntityLayer.Mapping;
+using ASMSBusinessLayer.ÝmplementationsBLL;
 
 namespace ASMSPresentationLayer
 {
@@ -38,7 +39,10 @@ namespace ASMSPresentationLayer
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+            .AddRazorRuntimeCompilation();//Proje çalýþýrken razor sayfalarýnda yapýlan deðiþiklikler anýnda sayfaya yansýmasý için eklendi.
+
+
             services.AddRazorPages(); //razor sayfalarý için
             services.AddMvc();
             services.AddSession(options =>
@@ -65,6 +69,7 @@ namespace ASMSPresentationLayer
             services.AddSingleton<IEmailSender, EmailSender>(); //Program her ayaða kalktýðýnda intences oluþturuyor
             services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
             services.AddScoped<IUsersAddressBusinessEngine, UsersAddressBusinessEngine>();
+            services.AddScoped<ICityBusinessEngine, CityBusinessEngine>();
             services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork,ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
         }
 

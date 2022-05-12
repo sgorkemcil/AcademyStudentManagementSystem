@@ -62,6 +62,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         <partial name="Partials/_HeaderPartial" />
         <!-- banner -->
+        <div class="banner_section_pages">
+
+        </div>
         <!-- //banner -->
     </header>
     <!-- //header -->
@@ -255,7 +258,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- //js -->
 
     <script src="~/asmsTheme/js/bootstrap.js"></script>
-
+    @RenderSection("Scripts", required: false)
+    @*Asenkron hali de vardır.
+    @await RenderSectionAsync("Scripts", required: false)*@
 </body>
 
 </html>
