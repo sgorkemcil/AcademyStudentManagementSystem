@@ -70,6 +70,8 @@ namespace ASMSPresentationLayer
             services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
             services.AddScoped<IUsersAddressBusinessEngine, UsersAddressBusinessEngine>();
             services.AddScoped<ICityBusinessEngine, CityBusinessEngine>();
+            services.AddScoped<IDistrictBusinessEngine, DistrictBusinessEngine>();
+            services.AddScoped<INeighbourhoodBusinessEngine, NeighbourhoodBusinessEngine>();
             services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork,ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
         }
 
