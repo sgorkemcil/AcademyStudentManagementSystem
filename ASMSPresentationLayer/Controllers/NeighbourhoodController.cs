@@ -7,11 +7,11 @@ using ASMSBusinessLayer.ContractsBLL;
 
 namespace ASMSPresentationLayer.Controllers
 {
-    public class NeighbourdhoodController : Controller
+    public class NeighbourhoodController : Controller
     {
         private readonly INeighbourhoodBusinessEngine _neighbourhoodEngine;
 
-        public NeighbourdhoodController(INeighbourhoodBusinessEngine neighbourhoodEngine)
+        public NeighbourhoodController(INeighbourhoodBusinessEngine neighbourhoodEngine)
         {
             _neighbourhoodEngine = neighbourhoodEngine;
         }

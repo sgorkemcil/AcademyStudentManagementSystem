@@ -169,7 +169,7 @@ namespace ASMSPresentationLayer.Controllers
                 //artık hoşgeldiniz.
                 if (_userManager.IsInRoleAsync(user,ASMSRoles.Student.ToString()).Result)
                 {
-                    return RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 if (_userManager.IsInRoleAsync(user, ASMSRoles.Coordinator.ToString()).Result)
                 {
