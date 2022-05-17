@@ -93,7 +93,8 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
                     await _emailSender.SendMessage(emailToStudent);
                     TempData["RegisterSucccessMessage"] = "Sisteme kaydınız başarıyla gerçekleşti!";
                     _logger.LogInformation("Sisteme yeni bir öğrenci işleri personeli kayıt oldu.userid=" + newUser.Id);
-                    return RedirectToAction("Login", "Admin", new { area = "Management",email=model.Email });
+                    //return RedirectToAction("Login", "Admin", new { area = "Management",email=model.Email });
+                    return RedirectToAction("Login", "Admin", new { area =nameof(Areas.Management),email=model.Email });
                 }
                 else
                 {
@@ -157,16 +158,16 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
                 }
                 if (_userManager.IsInRoleAsync(user, ASMSRoles.Coordinator.ToString()).Result)
                 {
-                    return RedirectToAction("Dashboard", "Admin",new { areas = "Management" });
+                    return RedirectToAction("Dashboard", "Admin",new { area = nameof(Areas.Management)});
                 }
                 if (_userManager.IsInRoleAsync(user, ASMSRoles.StudentAdministration.ToString()).Result)
                 {
-                    return RedirectToAction("Dashboard", "Admin");
+                    return RedirectToAction("Dashboard", "Admin", new { area = "Management" });
                 }
-                return RedirectToAction("Dashboard", "Home");
+                return RedirectToAction("Index", "Home");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 ModelState.AddModelError("", "Beklenmedik bir hata oluştu! Tekrar deneyiniz");
